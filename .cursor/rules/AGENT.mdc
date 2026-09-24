@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+---
+# Coding Rules
+Everytime you make update to the codebase, rebuild the whole project.
+
+If you cannot build because the app is currently running, just kill the app and retry. Do not skip building.
+**IMPORTANT** Do not close the game for any reason! If needed to, stop, ask me to close the game with your valid reason.
+
+**IMPORTANT** everything you implement must put performance as top priority.
+
+Always find the simpliest way to solve the requirement. Do not over-complicating it. If the current investigation/debugging method is taking a long time without succeed, re-think rightaway about other approach.
+
+If you don't really sure about something in the game, ask me to do A/B testing so you can scan and figure out what is different between 2 scenarios. Do not guess. Guessing is forbidden! Everything must be based on fact that can be checked.

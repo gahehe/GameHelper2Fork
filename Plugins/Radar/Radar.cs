@@ -19,6 +19,7 @@ namespace Radar
     using GameHelper.RemoteEnums;
     using GameHelper.RemoteEnums.Entity;
     using GameHelper.RemoteObjects.Components;
+    using GameHelper.RemoteObjects.States.InGameStateObjects;
     using GameHelper.Utils;
     using ImGuiNET;
     using Newtonsoft.Json;
@@ -144,7 +145,7 @@ namespace Radar
             if (!this.Settings.AutoDetectCoopMode)
             {
                 ImGui.Checkbox(this.PluginText.Label("settings.enable_coop_centering", "Enable Local Co-op Map Hack Centering", "RadarEnableCoopCentering"), ref this.Settings.EnableCoopMode);
-                ImGuiHelper.ToolTip(this.PluginText.T("settings.enable_coop_centering.tooltip", "Centers the map/maphack on the midpoint of P1 and P2 when playing co-op."));
+                ImGuiHelper.ToolTip(this.PluginText.T("settings.enable_coop_centering.tooltip", "Centers the map/map reveal on the midpoint of P1 and P2 when playing co-op."));
             }
 
             ImGui.Checkbox(this.PluginText.Label("settings.hide_hideout_town", "Hide Radar when in Hideout/Town", "RadarHideHideoutTown"), ref this.Settings.DrawWhenNotInHideoutOrTown);
@@ -169,7 +170,7 @@ namespace Radar
 
             if (ImGui.TreeNode(this.PluginText.Title("section.culling_advanced", "Culling window advance options", "RadarCullingAdvanced")))
             {
-                ImGui.Checkbox(this.PluginText.Label("settings.draw_maphack_in_culling", "Draw maphack in culling window", "RadarDrawMaphackInCulling"), ref this.Settings.DrawMapInCull);
+                ImGui.Checkbox(this.PluginText.Label("settings.draw_maphack_in_culling", "Draw map reveal in culling window", "RadarDrawMaphackInCulling"), ref this.Settings.DrawMapInCull);
                 ImGui.Checkbox(this.PluginText.Label("settings.draw_pois_in_culling", "Draw POIs in culling window", "RadarDrawPoisInCulling"), ref this.Settings.DrawPOIInCull);
                 ImGui.TreePop();
             }
@@ -177,7 +178,7 @@ namespace Radar
             ImGui.TreePop();
             ImGui.Separator();
             ImGui.NewLine();
-            if (ImGui.Checkbox(this.PluginText.Label("settings.draw_area_map", "Draw Area/Zone Map (maphack)", "RadarDrawAreaMap"), ref this.Settings.DrawWalkableMap))
+            if (ImGui.Checkbox(this.PluginText.Label("settings.draw_area_map", "Draw Area/Zone Map (map reveal)", "RadarDrawAreaMap"), ref this.Settings.DrawWalkableMap))
             {
                 if (this.Settings.DrawWalkableMap)
                 {
@@ -1118,6 +1119,7 @@ namespace Radar
                     !isLoathsomeMire &&
                     !isDeliriumShardBoss)
                 {
+                    this.ForgetOpenedStrongbox(entityValue);
                     continue;
                 }
 
@@ -1570,6 +1572,7 @@ namespace Radar
 
                 if (ev.EntityState == EntityStates.Useless && !isLoathsomeMire && !isDeliriumShardBoss)
                 {
+                    this.ForgetOpenedStrongbox(ev);
                     continue;
                 }
 
@@ -2134,6 +2137,40 @@ namespace Radar
         }
 
         /// <summary>
+        /// Removes a cached Research/Armourer strongbox after it is opened.
+        /// Those icons are drawn from <see cref="trackedNodes"/>, which otherwise keeps the
+        /// last closed position for the rest of the map.
+        /// </summary>
+        private void ForgetOpenedStrongbox(Entity entity)
+        {
+            if (entity.EntityType != EntityTypes.Chest || !IsOpenedStrongbox(entity))
+            {
+                return;
+            }
+
+            var strongboxKey = RadarSettings.StrongboxKeyForPath(entity.Path);
+            if (strongboxKey == null || !entity.TryGetComponent<Render>(out var render))
+            {
+                return;
+            }
+
+            var gridPos = render.GridPosition;
+            var key = $"strongbox|{strongboxKey}|{(int)gridPos.X}|{(int)gridPos.Y}";
+            this.trackedNodes.TryRemove(key, out _);
+        }
+
+        /// <summary>
+        /// True when a chest strongbox is opened. Both flags are set together by
+        /// <c>Entity.CalculateEntityState</c> from <c>Chest.IsOpened</c>.
+        /// </summary>
+        private static bool IsOpenedStrongbox(Entity entity)
+        {
+            return entity.EntityState == EntityStates.Useless &&
+                   entity.TryGetComponent<Chest>(out var chest) &&
+                   chest.IsOpened;
+        }
+
+        /// <summary>
         /// Classifies an entity path into a tracked (category, iconKey), or null if not tracked.
         /// Static + side-effect-free so it is safe to call from the background scan thread.
         /// </summary>
@@ -2219,6 +2256,12 @@ namespace Radar
                         var (category, iconKey) = classified.Value;
                         var gridPos = new Vector2(r.GridPosition.X, r.GridPosition.Y);
                         var k = $"{category}|{iconKey}|{(int)gridPos.X}|{(int)gridPos.Y}";
+                        if (category == "strongbox" && IsOpenedStrongbox(entity))
+                        {
+                            target.TryRemove(k, out _);
+                            return;
+                        }
+
                         target[k] = (gridPos, r.TerrainHeight, category, iconKey);
                     });
             });

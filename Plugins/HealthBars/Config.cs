@@ -148,7 +148,7 @@
                 ImGui.TableNextColumn();
                 ImGui.ColorEdit4(text.Label("config.text_color", "Text Color", "HealthBarsConfigTextColor"), ref this.TextColor);
                 ImGui.TableNextColumn();
-                if (ImGuiHelper.Vector2SliderInt(text.Label("config.scale", "Scale (x, y)", "HealthBarsConfigScale"), ImGui.GetColumnWidth(), ref this.Scale, 160, 500, 16, 128, ImGuiSliderFlags.Logarithmic))
+                if (ImGuiHelper.Vector2SliderInt(text.Label("config.scale", "Scale (x, y)", "HealthBarsConfigScale"), ImGui.GetColumnWidth(), ref this.Scale, 50, 500, 5, 128, ImGuiSliderFlags.Logarithmic))
                 {
                     this.UpdateGrauationsLocationData();
                 }

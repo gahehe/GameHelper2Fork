@@ -397,7 +397,7 @@ namespace HealthBars
 
         private string healthToHumanReadable(int value)
         {
-            if (value >= 100000)
+            if (value >= 1000000)
             {
                 return $"{(value / 1000000f):0.00}M";
 
