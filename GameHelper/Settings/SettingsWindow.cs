@@ -439,7 +439,6 @@ namespace GameHelper.Settings
             DrawMiscConfig();
             ChangeFontWidget();
             DrawReloadPluginWidget();
-            ImGui.PopTextWrapPos();
         }
 
         private static void DrawUiLanguageWidget()

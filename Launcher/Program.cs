@@ -32,12 +32,6 @@ namespace Launcher
                 var newName = MiscHelper.GenerateRandomString();
                 TemporaryFileManager.Purge();
                 //TODO: if functionality extends, should probably utilize an argument parser, but good for now
-                if (!LocationValidator.IsGameHelperLocationGood(out var message))
-                {
-                    Console.WriteLine(message);
-                    Console.Write("Press any key to ignore this warning.");
-                    Console.ReadKey();
-                }
             
                 var gameHelperPath = GameHelperTransformer.TransformGameHelperExecutable(gameHelperDir, gameHelperLoc, newName);
                 Console.WriteLine($"Starting GameHelper at '{gameHelperPath}'...");
