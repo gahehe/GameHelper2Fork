@@ -15,7 +15,6 @@ GameHelper2 is a Windows x64 .NET 10 overlay for Path of Exile 2. It attaches to
 dotnet build GameOverlay.sln -c Release       # or -c Debug while developing
 ```
 
-- **Handling build errors from locked files (`MSB3021`/`MSB3027`, "being used by another process"):** these happen because GameHelper is running and holds the output DLLs. This is expected — do **not** try to kill GameHelper, and do **not** explain that or why it happened. The compile itself still succeeded (no `error CS`); only the copy-to-output step failed. Just check for real `error CS` lines and tell the user whether they need to rebuild the solution themselves (i.e. whether the change requires a rebuild to take effect) — nothing more.
 - **Output / run dir:** `GameHelper\bin\<Config>\net10.0-windows\win-x64\`. Launch `Launcher.exe` from there (it locates and starts `GameHelper.exe`). Run with the same privilege level as the game — if the game is elevated, run elevated, or the overlay won't attach.
 - `NuGet.config` (repo root) adds the `veldrid-prereleases` myget feed required by `ClickableTransparentOverlay`.
 
