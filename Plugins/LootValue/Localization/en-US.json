@@ -1,5 +1,10 @@
 {
-  "plugin.description": "Shows market value labels over ground, stash, inventory, Ritual reward, and Currency Exchange items.",
+  "plugin.description": "Shows market value labels over ground, stash, inventory, Ritual reward, Currency Exchange items, and runestones.",
+  "section.runestones": "Runestones",
+  "settings.show_runestone_labels": "Show price on each Runeshape line",
+  "settings.hide_collected_runestones": "Hide claimed runestones",
+  "settings.runestone_min_value": "Runestone min value (ex)",
+  "settings.runestone_highlight_from": "Runestone highlight from (ex)",
   "button.refresh_prices_now": "Refresh prices now",
   "currency.chaos": "Chaos",
   "currency.divine": "Divine",

@@ -25,6 +25,21 @@ namespace GameHelper.RemoteObjects.Components
         /// </summary>
         public string? IconName { get; private set; }
 
+        /// <summary>
+        ///     Live read of the int immediately after the component header. Non-zero means the
+        ///     encounter icon is faded because the reward was claimed. Read on demand: the flag
+        ///     flips while the component address stays put.
+        /// </summary>
+        public bool IsEncounterComplete()
+        {
+            if (this.Address == IntPtr.Zero)
+            {
+                return false;
+            }
+
+            return Core.Process.Handle.ReadMemory<int>(this.Address + 0x10) != 0;
+        }
+
         /// <inheritdoc/>
         internal override void ToImGui()
         {

@@ -27,6 +27,18 @@ namespace LootValue
         /// <summary>Draw owned-stack values in the Currency Exchange item list.</summary>
         public bool ShowCurrencyExchangeOverlay = true;
 
+        /// <summary>Draw a price at the right edge of each open Runeshape Combinations row, and on the map.</summary>
+        public bool ShowRunestoneLabels = true;
+
+        /// <summary>Omit runestones whose minimap icon is already faded (reward claimed).</summary>
+        public bool HideCollectedRunestones = true;
+
+        /// <summary>Hide a runestone when its best reward is below this many Exalted. 0 shows every one.</summary>
+        public float RunestoneMinValueEx = 0f;
+
+        /// <summary>Green highlight when a runestone's best reward is at or above this many Exalted.</summary>
+        public float RunestoneHighlightMinEx = 30f;
+
         /// <summary>Hide all value overlays while the game is not the foreground window.</summary>
         public bool HideWhenGameInBackground = true;
 

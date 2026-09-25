@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="expedition2_recipes.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\GameHelper\GameHelper.csproj">
       <Private>false</Private>
       <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>

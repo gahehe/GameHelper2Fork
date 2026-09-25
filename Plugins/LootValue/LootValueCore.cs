@@ -24,7 +24,7 @@ namespace LootValue
     using Newtonsoft.Json.Linq;
 
     /// <summary>
-    ///     LootValue plugin — prices ground, stash, inventory, Ritual reward, and Currency Exchange items.
+    ///     LootValue plugin — prices ground, stash, inventory, Ritual reward, Currency Exchange items, and runestones.
     ///     Unidentified uniques are revealed by name via their icon art.
     /// </summary>
     public sealed class LootValueCore : PCore<LootValueSettings>
@@ -45,6 +45,7 @@ namespace LootValue
         private static readonly int[] RitualRewardGridPath = { 76, 13 };
 
         private readonly List<LootLabel> cachedLabels = new();
+        private readonly RunestoneOverlay runestones = new();
         private readonly Dictionary<uint, Tracked> trackWorld = new();
         private DateTime nextRecomputeUtc = DateTime.MinValue;
 
@@ -57,6 +58,10 @@ namespace LootValue
         // the derived text class lost another 0x18. Verified live by RunecraftHelper as well.
         private const int UiElementTextOffset = 0x360;
         private readonly List<TagChip> cachedTagChips = new();
+        private readonly List<TagChip> runeshapeLabels = new();
+        private DateTime nextRuneshapeUtc = DateTime.MinValue;
+        private static readonly uint[] RuneshapeFingerprints = { 0x00462EF1, 0x00502EF3, 0x00502EF7, 0x00542EF1, 0x00502EF1 };
+        private const uint RuneshapeVisibleMask = 1u << 0x0B;
         private readonly Dictionary<IntPtr, Tracked> trackTag = new();
         private DateTime nextTagScanUtc = DateTime.MinValue;
         private object? handleObj;
@@ -211,6 +216,12 @@ namespace LootValue
             ImGui.Checkbox(this.PluginText.Label("settings.show_inventory_overlay", "Show value over inventory items", "LootValueShowInventoryOverlay"), ref this.Settings.ShowInventoryOverlay);
             ImGui.Checkbox(this.PluginText.Label("settings.show_ritual_overlay", "Show value over Ritual rewards", "LootValueShowRitualOverlay"), ref this.Settings.ShowRitualOverlay);
             ImGui.Checkbox(this.PluginText.Label("settings.show_currency_exchange_overlay", "Show owned-stack values in Currency Exchange", "LootValueShowCurrencyExchangeOverlay"), ref this.Settings.ShowCurrencyExchangeOverlay);
+            ImGui.Separator();
+            ImGui.Text(this.PluginText.T("section.runestones", "Runestones"));
+            ImGui.Checkbox(this.PluginText.Label("settings.show_runestone_labels", "Show price on each Runeshape line", "LootValueShowRunestoneLabels"), ref this.Settings.ShowRunestoneLabels);
+            ImGui.Checkbox(this.PluginText.Label("settings.hide_collected_runestones", "Hide claimed runestones", "LootValueHideCollectedRunestones"), ref this.Settings.HideCollectedRunestones);
+            ImGui.SliderFloat(this.PluginText.Label("settings.runestone_min_value", "Runestone min value (ex)", "LootValueRunestoneMinValue"), ref this.Settings.RunestoneMinValueEx, 0f, 100f, "%.0f");
+            ImGui.SliderFloat(this.PluginText.Label("settings.runestone_highlight_from", "Runestone highlight from (ex)", "LootValueRunestoneHighlight"), ref this.Settings.RunestoneHighlightMinEx, 0f, 200f, "%.0f");
             ImGui.Checkbox(this.PluginText.Label("settings.hide_when_game_unfocused", "Hide values when game is not focused", "LootValueHideWhenGameUnfocused"), ref this.Settings.HideWhenGameInBackground);
             ImGui.Checkbox(this.PluginText.Label("settings.hide_slot_prices_on_hover", "Hide item-panel values while hovering an item", "LootValueHideSlotPricesOnHover"), ref this.Settings.HideSlotPricesOnHover);
             ImGui.Checkbox(this.PluginText.Label("settings.reveal_unidentified_uniques", "Reveal unidentified uniques (by art)", "LootValueRevealUnidentifiedUniques"), ref this.Settings.RevealUnidentifiedUniques);
@@ -349,6 +360,9 @@ namespace LootValue
             {
                 this.DrawCurrencyExchangeValues();
             }
+
+            this.DrawRuneshapePrices();
+            this.runestones.Draw(this.Settings);
         }
 
         /// <summary>Re-reads + reprices every ground item; throttled. The drawn position is updated live each frame.</summary>
@@ -1203,6 +1217,126 @@ namespace LootValue
                 foreground.AddText(font, fontSize, drawPosition + new Vector2(1f, 1f), 0xCC000000u, slot.ValueText);
                 foreground.AddText(font, fontSize, drawPosition, color, slot.ValueText);
             }
+        }
+
+        /// <summary>
+        ///     Price each visible row of the open Runeshape Combinations panel. The panel is found by the
+        ///     same flag fingerprints the game uses for that window; a closed panel fails the visible gate
+        ///     and draws nothing. "Rare Unique Item" has no market listing, so that row stays unlabeled.
+        /// </summary>
+        private void DrawRuneshapePrices()
+        {
+            if (!this.Settings.ShowRunestoneLabels)
+            {
+                if (this.runeshapeLabels.Count > 0) this.runeshapeLabels.Clear();
+                return;
+            }
+
+            if (!this.EnsureReflection()) return;
+            if (DateTime.UtcNow >= this.nextRuneshapeUtc)
+            {
+                this.nextRuneshapeUtc = DateTime.UtcNow.AddMilliseconds(Math.Max(16, this.Settings.RescanIntervalMs));
+                this.ScanRuneshapeRows();
+            }
+
+            if (this.runeshapeLabels.Count == 0) return;
+            var foreground = ImGui.GetBackgroundDrawList();
+            var font = ImGui.GetFont();
+            var baseSize = ImGui.GetFontSize();
+            foreach (var chip in this.runeshapeLabels)
+            {
+                if (!this.TryReadUi(chip.ElementAddress, out var offset) || !UiElementBaseFuncs.IsVisibleChecker(offset.Flags)) continue;
+                if (!PluginUiElementReflection.TryGetAbsoluteRect(chip.ElementAddress, out var position, out var size) || size.X <= 1f) continue;
+                var fontSize = chip.Highlight ? this.Settings.HighlightFontSize : this.Settings.FontSize;
+                var chipPos = new Vector2(position.X + size.X + 8f, position.Y + ((size.Y - fontSize) / 2f));
+                this.DrawValueLabel(foreground, font, baseSize, chipPos, chip.Text, chip.Color, chip.Highlight);
+            }
+        }
+
+        private void ScanRuneshapeRows()
+        {
+            this.runeshapeLabels.Clear();
+            var panel = this.FindRuneshapePanel(Core.States.InGameStateObject.GameUi.Address, 0);
+            if (panel == IntPtr.Zero || !this.TryGetChildren(panel, requireVisible: false, out var rows)) return;
+
+            foreach (var row in rows)
+            {
+                if (!this.TryReadUi(row, out var rowOffset) || !UiElementBaseFuncs.IsVisibleChecker(rowOffset.Flags)) continue;
+                if (!this.TryGetChildren(row, requireVisible: false, out var kids) || kids.Length == 0) continue;
+                var raw = this.ReadUiElementText(kids[0]).Split('\n')[0].Trim();
+                if (!TryParseRewardLine(raw, out var count, out var name)) continue;
+                var price = PoeNinjaPriceFetcher.GetPrice(name);
+                if (price == null) continue;
+
+                var priced = new PoeNinjaPrice { PriceChaos = price.PriceChaos * Math.Max(1, count) };
+                var (exValue, _) = PoeNinjaPriceFetcher.GetDisplayPrice(priced, 1);
+                var (displayValue, displayCurrency) = PoeNinjaPriceFetcher.GetDisplayPrice(priced, this.Settings.DisplayCurrency);
+                var highlight = exValue >= this.Settings.RunestoneHighlightMinEx;
+                var color = ImGui.ColorConvertFloat4ToU32(highlight ? this.Settings.HighlightColor : this.Settings.TextColor);
+                this.runeshapeLabels.Add(new TagChip(row, FormatValue(displayValue, displayCurrency), color, highlight));
+            }
+        }
+
+        private IntPtr FindRuneshapePanel(IntPtr parent, int step)
+        {
+            if (parent == IntPtr.Zero) return IntPtr.Zero;
+            if (step == RuneshapeFingerprints.Length) return this.IsRuneshapeContainer(parent) ? parent : IntPtr.Zero;
+            if (!this.TryGetChildren(parent, requireVisible: false, out var kids)) return IntPtr.Zero;
+
+            var target = RuneshapeFingerprints[step] & ~RuneshapeVisibleMask;
+            for (var pass = 0; pass < 2; pass++)
+            {
+                var wantVisible = pass == 0;
+                foreach (var child in kids)
+                {
+                    if (!this.TryReadUi(child, out var offset)) continue;
+                    if ((offset.Flags & ~RuneshapeVisibleMask) != target) continue;
+                    var visible = UiElementBaseFuncs.IsVisibleChecker(offset.Flags);
+                    if (visible != wantVisible) continue;
+                    if (step == 0 && !visible) continue;
+                    var deeper = this.FindRuneshapePanel(child, step + 1);
+                    if (deeper != IntPtr.Zero) return deeper;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+
+        private bool IsRuneshapeContainer(IntPtr address)
+        {
+            if (!this.TryGetChildren(address, requireVisible: false, out var rows)) return false;
+            foreach (var row in rows)
+            {
+                if (!this.TryReadUi(row, out var offset) || !UiElementBaseFuncs.IsVisibleChecker(offset.Flags)) continue;
+                if (!this.TryGetChildren(row, requireVisible: false, out var kids) || kids.Length == 0) continue;
+                if (this.ReadUiElementText(kids[0]).Length > 0) return true;
+            }
+
+            return false;
+        }
+
+        private bool TryReadUi(IntPtr address, out UiElementBaseOffset offset)
+        {
+            offset = default;
+            if (address == IntPtr.Zero || this.readUiOffsetMethod == null) return false;
+            if (this.readUiOffsetMethod.Invoke(this.handleObj, new object[] { address }) is not UiElementBaseOffset read) return false;
+            offset = read;
+            return true;
+        }
+
+        private static bool TryParseRewardLine(string raw, out int count, out string name)
+        {
+            count = 1;
+            name = raw.Trim();
+            var match = Regex.Match(name, @"^(\d+)\s*x\s+(.+)$", RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                int.TryParse(match.Groups[1].Value, NumberStyles.None, CultureInfo.InvariantCulture, out count);
+                name = match.Groups[2].Value.Trim();
+            }
+
+            name = Regex.Replace(name, @"\[(?:[^|\]]+\|)?([^\]]+)\]", "$1").Trim();
+            return name.Length >= 3 && count > 0;
         }
 
         private static string FormatValue(double value, string currency) => currency switch

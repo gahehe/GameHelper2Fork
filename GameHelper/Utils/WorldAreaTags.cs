@@ -89,9 +89,19 @@ namespace GameHelper.Utils
                 foreach (var kv in root)
                 {
                     var type = kv.Value.Value<string>("type") ?? "normal";
-                    var tagsArr = kv.Value["tags"] as JArray;
-                    var tags = tagsArr?.Select(t => t.Value<string>()).Where(s => !string.IsNullOrEmpty(s)).ToList()
-                               ?? new List<string>();
+                    var tags = new List<string>();
+                    if (kv.Value["tags"] is JArray tagsArr)
+                    {
+                        foreach (var token in tagsArr)
+                        {
+                            var tag = token.Value<string>();
+                            if (!string.IsNullOrEmpty(tag))
+                            {
+                                tags.Add(tag);
+                            }
+                        }
+                    }
+
                     result[kv.Key] = new WorldAreaMeta(type, tags);
                 }
             }

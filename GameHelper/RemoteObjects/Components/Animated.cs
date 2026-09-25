@@ -37,7 +37,7 @@ namespace GameHelper.RemoteObjects.Components
         ///     Gets the loaded .ao model file path for this entity (e.g.
         ///     "Metadata/Terrain/Doodads/Leagues/Expedition/chestmarker3_02.ao"). This is what
         ///     distinguishes the visual model of otherwise-identical entities that share the same
-        ///     metadata <see cref="Entity"/> path. Empty when it can't be resolved.
+        ///     metadata path on the entity. Empty when it can't be resolved.
         /// </summary>
         public string ModelPath { get; private set; } = string.Empty;
 
