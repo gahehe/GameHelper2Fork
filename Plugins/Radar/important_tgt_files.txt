@@ -290,13 +290,20 @@
     "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/Shark_Arena_02.tdtx:6-y:9": "Boss - Shark",
     "Metadata/Terrain/Islands/Tiles/TropicalIsland/TropicalCliff/TropicalCliff_Cv_Cove_01.tdtx:6-y:5": "Singing Caverns",
     "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/TropicalCoastCliff_CrabCave_02.tdtx:3-y:1": "Crab Rare",
-    "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/TropicalCoastCliff_CrabCave_01.tdtx:0-y:0": "Singing Caverns"
+    "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/TropicalCoastCliff_CrabCave_01.tdtx:0-y:0": "Singing Caverns",
+    "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/Shark_Arena_02.tdtx:0-y:0": "Boss - Shark",
+    "Metadata/Terrain/Islands/Tiles/TropicalIsland/TropicalCliff/TropicalCliff_Cv_Cove_01.tdtx:0-y:0": "Singing Caverns",
+    "Metadata/Terrain/Islands/Tiles/TropicalIsland/Features/TropicalCoastCliff_CrabCave_02.tdtx:0-y:0": "Crab Rare"
   },
   "G4_3_2": {
     "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/SirenDonut_01.tdtx:7-y:11": "Boss - Siren",
     "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/CoveTreasure_01.tdtx:3-y:3": "Quest - Humming Pearl",
     "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/EggRoom_WW_01.tdtx:4-y:4": "Egg Room",
-    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/SirenCoveEntrance_01.tdtx:4-y:4": "Whakapanu Island"
+    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/SirenCoveEntrance_01.tdtx:4-y:4": "Whakapanu Island",
+    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/SirenDonut_01.tdtx:0-y:0": "Boss - Siren",
+    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/CoveTreasure_01.tdtx:0-y:0": "Quest - Humming Pearl",
+    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/EggRoom_WW_01.tdtx:0-y:0": "Egg Room",
+    "Metadata/Terrain/Islands/Tiles/CoralDungeon/Features/SirenCoveEntrance_01.tdtx:0-y:0": "Whakapanu Island"
   },
   "G4_4_1": {
     "Metadata/Terrain/Islands/Tiles/CoralDungeon/Thickwall/CoralSinkhole/Arena/SudokuArena_03.tdtx:20-y:7": "Pay respects at end",
@@ -324,7 +331,9 @@
     "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/TwilightArena.tdtx:4-y:5": "Boss",
     "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/TwilightLighthouse.tdtx:13-y:9": "Bell - Currency",
     "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/TwilightOverlook.tdtx:3-y:8": "Bell (Rewards)",
-    "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/bell_feature_01.tdtx:1-y:1": "Bell (Rewards)"
+    "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/bell_feature_01.tdtx:1-y:1": "Bell (Rewards)",
+    "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/TwilightArena.tdtx:0-y:0": "Boss",
+    "Metadata/Terrain/Islands/Tiles/TwilightIsland/Feature/TwilightLighthouse.tdtx:0-y:0": "Bell - Currency"
   },
   "G4_10": {
     "Metadata/Terrain/Islands/Tiles/TwilightIsland/DigSite/DigSiteFeature/Uncovered_Precursor_Feature_02.tdtx:0-y:0": "Chest",
@@ -355,14 +364,16 @@
     "Metadata/Terrain/interlude/part1/p1_4/holton_estate_transition_01.tdtx:0-y:0": "Holton Estate",
     "Metadata/Terrain/Interlude/Part1/P1_4/Chaple_01.tdtx:7-y:11": "Bosses",
     "Metadata/Terrain/Interlude/Part1/P1_4/Prison_entrance.tdtx:7-y:4": "Wolvenhold",
-    "Metadata/Terrain/Interlude/Part1/P1_4/Holton_Estate_Transition_01.tdtx:10-y:1": "Holten Estate"
+    "Metadata/Terrain/Interlude/Part1/P1_4/Holton_Estate_Transition_01.tdtx:10-y:1": "Holten Estate",
+    "Metadata/Terrain/Interlude/Part1/P1_4/Prison_entrance.tdtx:0-y:0": "Woven"
   },
   "P1_5": {
     "Metadata/Terrain/Interlude/Part1/P1_5/Holten_Prison_Bossroom.tdtx:0-y:0": "Boss"
   },
   "P1_6": {
     "Metadata/Terrain/Maps/Derelict/Tiles/StairsUp_01.tdtx:2-y:3": "Boss stairs",
-    "Metadata/Terrain/Maps/Derelict/Tiles/HoltenBossStairsDown_01.tdtx:0-y:0": "Boss stairs"
+    "Metadata/Terrain/Maps/Derelict/Tiles/HoltenBossStairsDown_01.tdtx:0-y:0": "Boss stairs",
+    "Metadata/Terrain/Maps/Derelict/Tiles/StairsUp_01.tdtx:0-y:0": "Boss stairs"
   },
   "P2_1": {
     "Metadata/Terrain/Interlude/Part2/P2_1/Dregs_Transition.tdtx:3-y:8": "Pools of Khatal",
@@ -372,24 +383,30 @@
     "Metadata/Terrain/Interlude/Part2/P2_1/forge_entrance.tdtx:2-y:2": "Forge Entrance",
     "Metadata/Terrain/Interlude/Part2/P2_1/SaltWaste_Building_Landmark_01.tdtx:2-y:4": "Seal",
     "Metadata/Terrain/Interlude/Part2/P2_1/Gates_Exit_transition_01.tdtx:7-y:3": "The Galai Gates",
-    "Metadata/Terrain/Desert/Oasis/Ruins/ruinwall_St_M_end_01.tdtx:0-y:0": "Torbik"
+    "Metadata/Terrain/Desert/Oasis/Ruins/ruinwall_St_M_end_01.tdtx:0-y:0": "Torbik",
+    "Metadata/Terrain/Interlude/Part2/P2_1/Dregs_Transition.tdtx:0-y:0": "Pools of Khatal",
+    "Metadata/Terrain/Desert/Oasis/Ruins/ruinwall_Tri_01.tdtx:1-y:2": "Torbik"
   },
   "P2_2": {
-    "Metadata/Terrain/Interlude/Part2/P2_2/PenitentArchive_Exit.tdtx:10-y:7": "Exit"
+    "Metadata/Terrain/Interlude/Part2/P2_2/PenitentArchive_Exit.tdtx:10-y:7": "Exit",
+    "Metadata/Terrain/Interlude/Part2/P2_2/PenitentArchive_Exit.tdtx:0-y:0": "Exit"
   },
   "P2_3": {
     "Metadata/Terrain/Interlude/Part2/P2_3/BossRoomTile.tdtx:6-y:4": "Boss",
-    "Metadata/Terrain/Gallows/Act4_Interlude/Part2/P2_3/Tiles/SealPillar_01.tdtx:0-y:0": "2 Seal locations - Loot"
+    "Metadata/Terrain/Gallows/Act4_Interlude/Part2/P2_3/Tiles/SealPillar_01.tdtx:0-y:0": "2 Seal locations - Loot",
+    "Metadata/Terrain/Interlude/Part2/P2_3/BossRoomTile.tdtx:0-y:0": "Boss"
   },
   "P2_4": {
     "Metadata/Terrain/interlude/part2/p2_4/saitwaste_entrance_transition.tdtx:0-y:0": "Saitwaste Entrance"
   },
   "P2_5": {
-    "Metadata/Terrain/Interlude/Part2/Gates/AreaTransitions/GatesEnd_01.tdtx:6-y:6": "Gates end"
+    "Metadata/Terrain/Interlude/Part2/Gates/AreaTransitions/GatesEnd_01.tdtx:6-y:6": "Gates end",
+    "Metadata/Terrain/Interlude/Part2/Gates/AreaTransitions/GatesEnd_01.tdtx:0-y:0": "Gates end"
   },
   "P2_6": {
     "Metadata/Terrain/Maps/SevenWaters/Tiles/Feature/Arena_Transition_01.tdtx:10-y:6": "Entrance",
-    "Metadata/Terrain/Maps/SevenWaters/Tiles/BuildingWall/BuildingWall_X_01.tdtx:0-y:0": "Pillars - Buff choice"
+    "Metadata/Terrain/Maps/SevenWaters/Tiles/BuildingWall/BuildingWall_X_01.tdtx:0-y:0": "Pillars - Buff choice",
+    "Metadata/Terrain/Maps/SevenWaters/Tiles/Feature/Arena_Transition_01.tdtx:0-y:0": "Entrance"
   },
   "P2_7": {
     "Metadata/Terrain/Interlude/Part2/P2_7/Qimah_bossroom.tdtx:11-y:7": "Boss",
@@ -397,7 +414,8 @@
   },
   "P3_1": {
     "Metadata/Terrain/interlude/part3/p3_1/town_to_jungle_transition.tdtx:0-y:0": "Glade",
-    "Metadata/Terrain/Interlude/Part3/P3_1/Jungle_to_KriarVillage_Transition.tdtx:4-y:6": "Kriar Village"
+    "Metadata/Terrain/Interlude/Part3/P3_1/Jungle_to_KriarVillage_Transition.tdtx:4-y:6": "Kriar Village",
+    "Metadata/Terrain/Interlude/Part3/P3_1/Jungle_to_KriarVillage_Transition.tdtx:0-y:0": "Kriar Village"
   },
   "P3_2": {
     "Metadata/Terrain/interlude/part3/p3_2/jungle_transition.tdtx:0-y:0": "Ashen Forest",
@@ -405,20 +423,26 @@
   },
   "P3_3": {
     "Metadata/Terrain/Interlude/Part3/P3_3/GlacialTarn_Bossroom.tdtx:10-y:10": "Rakkar",
-    "Metadata/Terrain/Maps/FrozenFalls/Tiles/Cove_01.tdtx:3-y:3": "Howling Caves"
+    "Metadata/Terrain/Maps/FrozenFalls/Tiles/Cove_01.tdtx:3-y:3": "Howling Caves",
+    "Metadata/Terrain/Interlude/Part3/P3_3/GlacialTarn_Bossroom.tdtx:0-y:0": "Boss",
+    "Metadata/Terrain/Maps/FrozenFalls/Tiles/Cove_01.tdtx:0-y:0": "Coves"
   },
   "P3_4": {
     "Metadata/Terrain/Interlude/Part3/P3_4/Cave_Bossroom.tdtx:0-y:0": "Boss"
   },
   "P3_5": {
     "Metadata/Terrain/Interlude/Part3/P3_5/Ravine_Exit_Transition.tdtx:9-y:9": "Etched Ravine",
-    "Metadata/Terrain/Interlude/Part3/P3_5/Medition_Ridge.tdtx:8-y:10": "Elder Madox"
+    "Metadata/Terrain/Interlude/Part3/P3_5/Medition_Ridge.tdtx:8-y:10": "Elder Madox",
+    "Metadata/Terrain/Interlude/Part3/P3_5/Ravine_Exit_Transition.tdtx:0-y:0": "Ravine",
+    "Metadata/Terrain/Interlude/Part3/P3_5/Medition_Ridge.tdtx:0-y:0": "Guarenteed unique?"
   },
   "P3_6": {
-    "Metadata/Terrain/Interlude/Part3/P3_6/Ravine_Bossroom.tdtx:4-y:3": "Stormgore"
+    "Metadata/Terrain/Interlude/Part3/P3_6/Ravine_Bossroom.tdtx:4-y:3": "Stormgore",
+    "Metadata/Terrain/Interlude/Part3/P3_6/Ravine_Bossroom.tdtx:0-y:0": "Boss"
   },
   "P3_7": {
-    "Metadata/Terrain/Interlude/Part3/P3_7/BloodVault_Bossroom.tdtx:6-y:7": "Zelina & Zolin"
+    "Metadata/Terrain/Interlude/Part3/P3_7/BloodVault_Bossroom.tdtx:6-y:7": "Zelina & Zolin",
+    "Metadata/Terrain/Interlude/Part3/P3_7/BloodVault_Bossroom.tdtx:0-y:0": "Boss"
   },
   "MapBluff": {
     "Metadata/Terrain/Maps/Bluff/Tiles/Feature/Beacon_01.tdtx:0-y:0": "Beacon"
