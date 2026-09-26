@@ -1,0 +1,18 @@
+{
+  "plugin.description": "Scores Trial of the Sekhemas rooms and marks a best path.",
+  "settings.enabled": "Enabled",
+  "settings.room_labels": "Room labels",
+  "settings.best_path": "Draw best path",
+  "settings.frame": "Frame thickness",
+  "settings.path_color": "Best path color",
+  "settings.profile": "Active profile",
+  "settings.reset": "Reset profile",
+  "settings.search": "Search afflictions",
+  "settings.avoid_merchant": "Avoid Merchant when water is below",
+  "settings.avoid_honour": "Avoid Honour when honour percent is above",
+  "settings.show_portals": "Portals",
+  "settings.show_levers": "Levers",
+  "settings.show_crystals": "Crystals",
+  "settings.show_chests": "Chests",
+  "settings.chest_labels": "Chest labels"
+}
