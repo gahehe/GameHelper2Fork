@@ -19,6 +19,7 @@ namespace SekhemaHelper
     {
         private string SettingsPath => Path.Join(this.DllDirectory, "config", "settings.txt");
         private string loggedSignature = string.Empty;
+        private string boundArea = string.Empty;
         private string search = string.Empty;
         private SekhemaFloor? drawnFloor;
         private long nextReadMs;
@@ -175,8 +176,17 @@ namespace SekhemaHelper
             if (areaId.Length == 0 || !areaId.StartsWith("Sanctum", StringComparison.Ordinal))
             {
                 this.loggedSignature = string.Empty;
+                this.boundArea = string.Empty;
                 this.drawnFloor = null;
                 return;
+            }
+
+            if (!string.Equals(this.boundArea, areaId, StringComparison.Ordinal))
+            {
+                this.boundArea = areaId;
+                this.loggedSignature = string.Empty;
+                this.drawnFloor = null;
+                this.nextReadMs = 0;
             }
 
             var panel = state.GameUi.SekhemasTrialMapPanel;
@@ -200,31 +210,32 @@ namespace SekhemaHelper
                 }
 
                 var floor = SekhemaFloorRead.TryRead(panel.Address.ToInt64(), defenses, this.Settings.Active());
-                if (floor == null)
-                {
-                    return;
-                }
-
                 this.drawnFloor = floor;
-                var sig = areaId + SekhemaFloorRead.Signature(floor);
-                if (sig != this.loggedSignature)
+                if (floor != null)
                 {
-                    this.loggedSignature = sig;
-                    var text = areaId + Environment.NewLine + SekhemaFloorRead.FormatLog(floor);
-                    try
+                    var sig = areaId + SekhemaFloorRead.Signature(floor);
+                    if (sig != this.loggedSignature)
                     {
-                        var logPath = Path.Join(this.DllDirectory, "config", "floor-log.txt");
-                        Directory.CreateDirectory(Path.GetDirectoryName(logPath) ?? string.Empty);
-                        File.WriteAllText(logPath, text);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"[Sekhema] Failed to write floor log: {ex.Message}");
+                        this.loggedSignature = sig;
+                        var text = areaId + Environment.NewLine + SekhemaFloorRead.FormatLog(floor);
+                        try
+                        {
+                            var logPath = Path.Join(this.DllDirectory, "config", "floor-log.txt");
+                            Directory.CreateDirectory(Path.GetDirectoryName(logPath) ?? string.Empty);
+                            File.WriteAllText(logPath, text);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[Sekhema] Failed to write floor log: {ex.Message}");
+                        }
                     }
                 }
             }
 
-            this.DrawFloor(panel, this.drawnFloor);
+            if (this.drawnFloor != null)
+            {
+                this.DrawFloor(panel, this.drawnFloor);
+            }
         }
 
         private void DrawFloor(GameHelper.RemoteObjects.UiElement.UiElementBase panel, SekhemaFloor floor)

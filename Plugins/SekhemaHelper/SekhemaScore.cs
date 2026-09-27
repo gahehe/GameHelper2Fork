@@ -219,6 +219,12 @@ namespace SekhemaHelper
                 var bestIdx = -1;
                 for (var i = 0; i < floor.Layers[0].Count; i++)
                 {
+                    var start = floor.Layers[0][i];
+                    if (start.RoomType.Length == 0 && start.Reward.Length == 0 && start.Affliction.Length == 0)
+                    {
+                        continue;
+                    }
+
                     if (bestIdx < 0 || dp[0][i] > best)
                     {
                         best = dp[0][i];

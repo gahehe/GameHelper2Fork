@@ -2,7 +2,7 @@
 alwaysApply: true
 ---
 # Coding Rules
-Everytime you make update to the codebase, rebuild the whole project.
+Everytime you make update to the codebase, rebuild the whole project in both Debug and Release.
 
 If you cannot build because the app is currently running, just kill the app and retry. Do not skip building.
 **IMPORTANT** Do not close the game for any reason! If needed to, stop, ask me to close the game with your valid reason.
@@ -12,3 +12,7 @@ If you cannot build because the app is currently running, just kill the app and 
 Always find the simpliest way to solve the requirement. Do not over-complicating it. If the current investigation/debugging method is taking a long time without succeed, re-think rightaway about other approach.
 
 If you don't really sure about something in the game, ask me to do A/B testing so you can scan and figure out what is different between 2 scenarios. Do not guess. Guessing is forbidden! Everything must be based on fact that can be checked.
+
+**IMPORTANT** always test your changes with live game data if you can before claim the request is done. If you can test with live game data immediately, ask me to do that and report back, with detailed step-by-step with exact operations, if operation contains GameHelper2 overlay, name the exact label of the button to click/string to look up. Do not guess.
+
+POE2Radar is a read-only legacy app and should be used as a reference on how things are implemented only. It's a very different app, with different approach so cloning the logic to GameHelper2 (our main project) won't work. Only refer to POE2Radar logic for reference only, everything must be implemented in GameHelper2 way.

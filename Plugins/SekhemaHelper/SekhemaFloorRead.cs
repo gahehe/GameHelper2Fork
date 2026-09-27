@@ -44,11 +44,7 @@ namespace SekhemaHelper
                     return null;
                 }
 
-                if (li == 0 && rooms.Length != 1)
-                {
-                    return null;
-                }
-
+                // Later floors do not start on a single room. Sanctum_2_Foyer_3 layer 0 had 3.
                 var lx = SekhemaMemory.F32(layerEls[li] + 0x100);
                 var ly = SekhemaMemory.F32(layerEls[li] + 0x104);
                 var layer = new List<SekhemaRoom>(rooms.Length);
@@ -203,6 +199,9 @@ namespace SekhemaHelper
             }
 
             var taken = new List<(int L, int I)>();
+            var openL = -1;
+            var openI = -1;
+            var openMixed = false;
             for (var s = 0; s < count; s++)
             {
                 var at = first + (s * 24);
@@ -236,11 +235,34 @@ namespace SekhemaHelper
                     src.Connections.Add(b.I);
                 }
 
+                // State 1 edges leave the room you are choosing from. After the first
+                // clear on floor 2 there is no state-3 segment; all three state-1
+                // segments left room 0.0.
+                if (state == 1)
+                {
+                    if (openL < 0)
+                    {
+                        openL = a.L;
+                        openI = a.I;
+                    }
+                    else if (openL != a.L || openI != a.I)
+                    {
+                        openMixed = true;
+                    }
+                }
+
                 if (state == 3)
                 {
                     taken.Add((a.L, a.I));
                     taken.Add((b.L, b.I));
                 }
+            }
+
+            if (!openMixed && openL >= 0)
+            {
+                floor.PlayerLayer = openL;
+                floor.PlayerRoom = openI;
+                return;
             }
 
             if (taken.Count == 0)
