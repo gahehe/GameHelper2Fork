@@ -1339,7 +1339,7 @@ namespace LootValue
             return name.Length >= 3 && count > 0;
         }
 
-        private static string FormatValue(double value, string currency) => currency switch
+        internal static string FormatValue(double value, string currency) => currency switch
         {
             "divine" => value.ToString("0.00", CultureInfo.InvariantCulture) + " div",
             "chaos" => value.ToString("0.#", CultureInfo.InvariantCulture) + " c",

@@ -342,16 +342,31 @@ namespace LootValue
         {
             if (price == null) return (0, "divine");
 
+            // Rates are filled after the first price fetch. Until then, keep the listing's own unit.
+            if (displayCurrency == 1 && chaosPerExalted <= 0)
+                return (Math.Round(price.Price, 1), "ex");
+            if (displayCurrency != 1 && displayCurrency != 2 && chaosPerDivine <= 0)
+                return (Math.Round(price.Price, 3), "divine");
+
+            return GetDisplayPrice(price.PriceChaos, displayCurrency);
+        }
+
+        /// <summary>
+        ///     Convert a chaos amount into the LootValue display currency.
+        ///     0 = Divine, 1 = Exalted, 2 = Chaos.
+        /// </summary>
+        public static (double Value, string Currency) GetDisplayPrice(double priceChaos, int displayCurrency)
+        {
             if (displayCurrency == 2)
-                return (Math.Round(price.PriceChaos, 1), "chaos");
+                return (Math.Round(priceChaos, 1), "chaos");
 
             if (displayCurrency == 1)
             {
-                var ex = chaosPerExalted > 0 ? price.PriceChaos / chaosPerExalted : price.Price;
+                var ex = chaosPerExalted > 0 ? priceChaos / chaosPerExalted : 0;
                 return (Math.Round(ex, 1), "ex");
             }
 
-            var div = chaosPerDivine > 0 ? price.PriceChaos / chaosPerDivine : price.Price;
+            var div = chaosPerDivine > 0 ? priceChaos / chaosPerDivine : 0;
             return (Math.Round(div, 3), "divine");
         }
 

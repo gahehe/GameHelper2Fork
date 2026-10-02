@@ -174,19 +174,22 @@ namespace LootValue
             marker = null!;
             var offers = this.catalog.Offers(sight.AnchorIndex, sight.AnchorPos, sight.Holes, sight.IsUnique, areaLevel);
             double best = 0;
+            double bestChaos = 0;
             var bestName = string.Empty;
             var rewards = new List<RunestoneReward>(3);
             foreach (var offer in offers)
             {
-                var ex = PriceEx(offer.Name, offer.Count);
-                if (ex <= 0)
+                var chaos = PriceChaos(offer.Name, offer.Count);
+                if (chaos <= 0)
                 {
                     continue;
                 }
 
+                var ex = PoeNinjaPriceFetcher.GetDisplayPrice(chaos, 1).Value;
                 if (ex > best)
                 {
                     best = ex;
+                    bestChaos = chaos;
                     bestName = offer.Name;
                 }
 
@@ -207,11 +210,11 @@ namespace LootValue
             var anchor = sight.IsUnique
                 ? "Unique"
                 : sight.AnchorIndex >= 0 ? this.catalog.RuneName(sight.AnchorIndex) : "?";
-            marker = new RunestoneMarker(sight.X, sight.Y, sight.Height, sight.Holes, anchor, best, bestName, rewards);
+            marker = new RunestoneMarker(sight.X, sight.Y, sight.Height, sight.Holes, anchor, best, bestChaos, bestName, rewards);
             return true;
         }
 
-        private static double PriceEx(string name, int count)
+        private static double PriceChaos(string name, int count)
         {
             var price = PoeNinjaPriceFetcher.GetPrice(name);
             if (price == null)
@@ -219,8 +222,7 @@ namespace LootValue
                 return 0;
             }
 
-            var scaled = new PoeNinjaPrice { PriceChaos = price.PriceChaos * Math.Max(1, count) };
-            return PoeNinjaPriceFetcher.GetDisplayPrice(scaled, 1).Value;
+            return price.PriceChaos * Math.Max(1, count);
         }
 
         private static bool TryReadSight(Entity entity, out Sight sight)
@@ -312,7 +314,7 @@ namespace LootValue
                     continue;
                 }
 
-                var text = marker.BestEx > 0 ? $"{marker.BestEx:0}ex · {marker.BestName}" : $"{marker.Anchor} {marker.Holes}h";
+                var text = marker.BestEx > 0 ? FormatMapPrice(marker, settings.DisplayCurrency) : $"{marker.Anchor} {marker.Holes}h";
                 var color = TierColor(marker.BestEx, threshold);
                 var fontSize = ImGui.GetFontSize() * (marker.BestEx >= threshold && threshold > 0 ? 1.35f : 1.15f);
                 var pos = new Vector2(screen.X + 22f, screen.Y - 8f);
@@ -320,6 +322,12 @@ namespace LootValue
                 fg.AddText(font, fontSize, pos + new Vector2(1f, 1f), 0xCC000000u, text);
                 fg.AddText(font, fontSize, pos, packed, text);
             }
+        }
+
+        private static string FormatMapPrice(RunestoneMarker marker, int displayCurrency)
+        {
+            var (value, currency) = PoeNinjaPriceFetcher.GetDisplayPrice(marker.BestChaos, displayCurrency);
+            return $"{LootValueCore.FormatValue(value, currency)} · {marker.BestName}";
         }
 
         private static Vector4 TierColor(double bestEx, float threshold)
@@ -354,7 +362,7 @@ namespace LootValue
 
         private sealed class RunestoneMarker
         {
-            public RunestoneMarker(float x, float y, float height, int holes, string anchor, double bestEx, string bestName, List<RunestoneReward> rewards)
+            public RunestoneMarker(float x, float y, float height, int holes, string anchor, double bestEx, double bestChaos, string bestName, List<RunestoneReward> rewards)
             {
                 this.X = x;
                 this.Y = y;
@@ -362,6 +370,7 @@ namespace LootValue
                 this.Holes = holes;
                 this.Anchor = anchor;
                 this.BestEx = bestEx;
+                this.BestChaos = bestChaos;
                 this.BestName = bestName;
                 this.Rewards = rewards;
             }
@@ -377,6 +386,8 @@ namespace LootValue
             public string Anchor { get; }
 
             public double BestEx { get; }
+
+            public double BestChaos { get; }
 
             public string BestName { get; }
 
