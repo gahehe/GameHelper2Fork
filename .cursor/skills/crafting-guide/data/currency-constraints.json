@@ -1,0 +1,786 @@
+[
+  {
+    "id": 3,
+    "handler": null,
+    "item": 13,
+    "constraints": [
+      "rarity_normal"
+    ],
+    "omens": []
+  },
+  {
+    "id": 4,
+    "handler": "poe2_transmutation",
+    "item": 13,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 5,
+    "handler": "poe2_transmutation_greater",
+    "item": 14,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 6,
+    "handler": "poe2_transmutation_perfect",
+    "item": 15,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 7,
+    "handler": null,
+    "item": 24,
+    "constraints": [
+      "rarity_magic",
+      "open_affix"
+    ],
+    "omens": []
+  },
+  {
+    "id": 8,
+    "handler": "poe2_augmentation",
+    "item": 24,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 9,
+    "handler": "poe2_augmentation_greater",
+    "item": 25,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 10,
+    "handler": "poe2_augmentation_perfect",
+    "item": 26,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 11,
+    "handler": null,
+    "item": 21,
+    "constraints": [
+      "rarity_magic",
+      "can_be_rare"
+    ],
+    "omens": [
+      "OmenOnRegalPrefix",
+      "OmenOnRegalSuffix",
+      "OmenOnRegalAddExistingModType"
+    ]
+  },
+  {
+    "id": 12,
+    "handler": "poe2_regal",
+    "item": 21,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 13,
+    "handler": "poe2_regal_greater",
+    "item": 22,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 14,
+    "handler": "poe2_regal_perfect",
+    "item": 23,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 15,
+    "handler": "poe2_alchemy",
+    "item": 9,
+    "constraints": [
+      "rarity_not_rare",
+      "can_be_rare"
+    ],
+    "omens": [
+      "OmenOnAlchemyMaximumPrefixes",
+      "OmenOnAlchemyMaximumSuffixes"
+    ]
+  },
+  {
+    "id": 16,
+    "handler": null,
+    "item": 3,
+    "constraints": [
+      "rarity_rare",
+      "can_be_rare"
+    ],
+    "omens": [
+      "OmenOnChaosLowestLevelMod",
+      "OmenOnChaosPrefix",
+      "OmenOnChaosSuffix",
+      "OmenOnChaosMapItemRarity",
+      "OmenOnChaosMapPackSize",
+      "OmenOnChaosMapMonsterRarity"
+    ]
+  },
+  {
+    "id": 17,
+    "handler": "poe2_chaos",
+    "item": 3,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 18,
+    "handler": "poe2_chaos_greater",
+    "item": 4,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 19,
+    "handler": "poe2_chaos_perfect",
+    "item": 5,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 20,
+    "handler": null,
+    "item": 18,
+    "constraints": [
+      "rarity_rare",
+      "can_be_rare",
+      "open_affix"
+    ],
+    "omens": [
+      "OmenOnExaltAddTwoMods",
+      "OmenOnExaltAddPrefixes",
+      "OmenOnExaltAddSuffixes",
+      "OmenOnExaltAddExistingModType",
+      "OmenOnExaltConsumeQuality"
+    ]
+  },
+  {
+    "id": 21,
+    "handler": "poe2_exalted",
+    "item": 18,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 22,
+    "handler": "poe2_exalted_greater",
+    "item": 19,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 23,
+    "handler": "poe2_exalted_perfect",
+    "item": 20,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 24,
+    "handler": "poe2_annulment",
+    "item": 196,
+    "constraints": [
+      "rarity_not_normal",
+      "minimum_1_explicit"
+    ],
+    "omens": [
+      "OmenOnAnnulRemoveTwoMods",
+      "OmenOnAnnulRemovePrefixes",
+      "OmenOnAnnulRemoveSuffixes",
+      "OmenOnAnnulRemoveAbyssMod"
+    ]
+  },
+  {
+    "id": 25,
+    "handler": "poe2_divine",
+    "item": 36,
+    "constraints": [
+      "rarity_not_normal"
+    ],
+    "omens": [
+      "OmenOnDivineRerollImplicits",
+      "OmenOnDivineSanctify"
+    ]
+  },
+  {
+    "id": 26,
+    "handler": "poe2_fracture",
+    "item": 203,
+    "constraints": [
+      "rarity_rare",
+      "minimum_4_explicits",
+      "can_be_rare",
+      "not_strongbox"
+    ],
+    "omens": []
+  },
+  {
+    "id": 27,
+    "handler": "poe2_vaal",
+    "item": 52,
+    "constraints": [
+      "can_corrupt",
+      "corruptable_base"
+    ],
+    "omens": [
+      "OmenOnVaalRemoveDoNothingOutcome"
+    ]
+  },
+  {
+    "id": 28,
+    "handler": "poe2_vaal",
+    "item": 57,
+    "constraints": [
+      "tablet_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 29,
+    "handler": "artificer",
+    "item": 35,
+    "constraints": [
+      "socketable_base",
+      "not_maximum_sockets"
+    ],
+    "omens": []
+  },
+  {
+    "id": 30,
+    "handler": "blacksmith_whetstone",
+    "item": 0,
+    "constraints": [
+      "weapon_quality_base",
+      "not_maximum_quality"
+    ],
+    "omens": []
+  },
+  {
+    "id": 31,
+    "handler": "arcanist_etcher",
+    "item": 1,
+    "constraints": [
+      "caster_quality_base",
+      "not_maximum_quality"
+    ],
+    "omens": []
+  },
+  {
+    "id": 32,
+    "handler": "armourer_scrap",
+    "item": 6,
+    "constraints": [
+      "armour_quality_base",
+      "not_maximum_quality"
+    ],
+    "omens": []
+  },
+  {
+    "id": 33,
+    "handler": "glassblower_bauble",
+    "item": 28,
+    "constraints": [
+      "flask_base",
+      "not_maximum_quality"
+    ],
+    "omens": []
+  },
+  {
+    "id": 99,
+    "handler": "poe2_vaal_infuser",
+    "item": 65,
+    "constraints": [
+      "armour_quality_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 100,
+    "handler": "poe2_vaal_infuser",
+    "item": 66,
+    "constraints": [
+      "weapon_quality_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 101,
+    "handler": "poe2_vaal_infuser",
+    "item": 67,
+    "constraints": [
+      "caster_quality_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 102,
+    "handler": "poe2_vaal_infuser",
+    "item": 68,
+    "constraints": [
+      "ring_or_amulet_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 35,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_magic"
+    ],
+    "omens": []
+  },
+  {
+    "id": 36,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_magic"
+    ],
+    "omens": []
+  },
+  {
+    "id": 37,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_magic"
+    ],
+    "omens": []
+  },
+  {
+    "id": 38,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_rare"
+    ],
+    "omens": [
+      "OmenOnPerfectEssenceSuffix",
+      "OmenOnPerfectEssencePrefix"
+    ]
+  },
+  {
+    "id": 39,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_rare"
+    ],
+    "omens": [
+      "OmenOnPerfectEssenceSuffix",
+      "OmenOnPerfectEssencePrefix"
+    ]
+  },
+  {
+    "id": 91,
+    "handler": "poe2_essence",
+    "item": null,
+    "constraints": [
+      "rarity_rare"
+    ],
+    "omens": [
+      "OmenOnPerfectEssenceSuffix",
+      "OmenOnPerfectEssencePrefix"
+    ]
+  },
+  {
+    "id": 98,
+    "handler": "poe2_desecrate_breach",
+    "item": 4886,
+    "constraints": [
+      "desecration_collarbone_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 41,
+    "handler": "poe2_desecrate_high",
+    "item": 4883,
+    "constraints": [
+      "desecration_collarbone_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 42,
+    "handler": "poe2_desecrate_high",
+    "item": 4877,
+    "constraints": [
+      "desecration_jawbone_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 43,
+    "handler": "poe2_desecrate_high",
+    "item": 4880,
+    "constraints": [
+      "desecration_rib_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 44,
+    "handler": "poe2_desecrate_low",
+    "item": 4881,
+    "constraints": [
+      "desecration_collarbone_base",
+      "max_item_level_64"
+    ],
+    "omens": []
+  },
+  {
+    "id": 45,
+    "handler": "poe2_desecrate_low",
+    "item": 4875,
+    "constraints": [
+      "desecration_jawbone_base",
+      "max_item_level_64"
+    ],
+    "omens": []
+  },
+  {
+    "id": 46,
+    "handler": "poe2_desecrate_low",
+    "item": 4878,
+    "constraints": [
+      "desecration_rib_base",
+      "max_item_level_64"
+    ],
+    "omens": []
+  },
+  {
+    "id": 47,
+    "handler": "poe2_desecrate_mid",
+    "item": 4882,
+    "constraints": [
+      "desecration_collarbone_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 48,
+    "handler": "poe2_desecrate_mid",
+    "item": 4884,
+    "constraints": [
+      "desecration_cranium_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 49,
+    "handler": "poe2_desecrate_mid",
+    "item": 4876,
+    "constraints": [
+      "desecration_jawbone_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 50,
+    "handler": "poe2_desecrate_mid",
+    "item": 4879,
+    "constraints": [
+      "desecration_rib_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 51,
+    "handler": "poe2_desecrate_mid",
+    "item": 4885,
+    "constraints": [
+      "desecration_vertebrae_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 79,
+    "handler": "poe2_refined_catalyst_adaptive",
+    "item": 301,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 80,
+    "handler": "poe2_refined_catalyst_carapace",
+    "item": 292,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 81,
+    "handler": "poe2_refined_catalyst_chayula",
+    "item": 297,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 82,
+    "handler": "poe2_refined_catalyst_esh",
+    "item": 296,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 83,
+    "handler": "poe2_refined_catalyst_flesh",
+    "item": 290,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 84,
+    "handler": "poe2_refined_catalyst_neural",
+    "item": 291,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 103,
+    "handler": "poe2_refined_catalyst_necrotic",
+    "item": 302,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 85,
+    "handler": "poe2_refined_catalyst_reaver",
+    "item": 298,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 86,
+    "handler": "poe2_refined_catalyst_sibilant",
+    "item": 299,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 87,
+    "handler": "poe2_refined_catalyst_skittering",
+    "item": 300,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 88,
+    "handler": "poe2_refined_catalyst_tul",
+    "item": 295,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 89,
+    "handler": "poe2_refined_catalyst_uulnetol",
+    "item": 293,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 90,
+    "handler": "poe2_refined_catalyst_xoph",
+    "item": 294,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 54,
+    "handler": "poe2_catalyst_adaptive",
+    "item": 288,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 55,
+    "handler": "poe2_catalyst_carapace",
+    "item": 279,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 56,
+    "handler": "poe2_catalyst_chayula",
+    "item": 284,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 57,
+    "handler": "poe2_catalyst_esh",
+    "item": 283,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 58,
+    "handler": "poe2_catalyst_flesh",
+    "item": 277,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 59,
+    "handler": "poe2_catalyst_neural",
+    "item": 278,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 104,
+    "handler": "poe2_catalyst_necrotic",
+    "item": 289,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 60,
+    "handler": "poe2_catalyst_reaver",
+    "item": 285,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 61,
+    "handler": "poe2_catalyst_sibilant",
+    "item": 286,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 62,
+    "handler": "poe2_catalyst_skittering",
+    "item": 287,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 63,
+    "handler": "poe2_catalyst_tul",
+    "item": 282,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 64,
+    "handler": "poe2_catalyst_uulnetol",
+    "item": 280,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 65,
+    "handler": "poe2_catalyst_xoph",
+    "item": 281,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 67,
+    "handler": "poe2_architect",
+    "item": 54,
+    "constraints": [
+      "is_equipment_or_jewel"
+    ],
+    "omens": []
+  },
+  {
+    "id": 94,
+    "handler": "poe2_fire_flux",
+    "item": 5087,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 95,
+    "handler": "poe2_ice_flux",
+    "item": 5088,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 96,
+    "handler": "poe2_lightning_flux",
+    "item": 5089,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 97,
+    "handler": "poe2_chaos_flux",
+    "item": 5090,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 69,
+    "handler": "poe2_recombinate",
+    "item": "Metadata/Items/Currency/SentinelCurrencyArmour",
+    "constraints": [
+      "armour_recombinate_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 70,
+    "handler": "poe2_recombinate",
+    "item": "Metadata/Items/Currency/SentinelCurrencyJewellery",
+    "constraints": [
+      "jewellery_recombinate_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 71,
+    "handler": "poe2_recombinate",
+    "item": "Metadata/Items/Currency/SentinelCurrencyWeapon",
+    "constraints": [
+      "weapon_recombinate_base"
+    ],
+    "omens": []
+  },
+  {
+    "id": 73,
+    "handler": "spawn_normal_item",
+    "item": null,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 74,
+    "handler": "spawn_magic_item",
+    "item": null,
+    "constraints": [],
+    "omens": []
+  },
+  {
+    "id": 75,
+    "handler": "spawn_rare_item",
+    "item": null,
+    "constraints": [
+      "can_be_rare"
+    ],
+    "omens": []
+  },
+  {
+    "id": 77,
+    "handler": "reveal",
+    "item": null,
+    "constraints": [
+      "desecration_base",
+      "has_unrevealed"
+    ],
+    "omens": []
+  }
+]

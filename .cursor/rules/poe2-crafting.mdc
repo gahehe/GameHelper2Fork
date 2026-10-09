@@ -1,0 +1,31 @@
+﻿---
+description: Generic PoE2 crafting constraints (family first, no early Annul, verify outcomes)
+alwaysApply: true
+---
+
+# PoE2 crafting advice
+
+These apply to every craft, currency, and omen pair. Do not special-case them to one essence or one omen.
+
+## Family conflict is checked before any "remove then add"
+
+Any craft that applies a chosen or guaranteed modifier (essences, and the same pattern on other currencies) checks family / "cannot coexist" before it consumes an omen whose job is to remove a mod and make room (Crystallisation and every other prefix/suffix-locked remove-then-add omen).
+
+If that family is already on the item:
+
+- The add is illegal. The craft fails (typically "Similar modifier already present!").
+- Nothing is removed. The omen never gets a chance to overwrite.
+- Do not recommend replacing a same-family affix by pairing the add-craft with a removal omen.
+
+Removal omens only free a prefix or suffix slot after the new mod is already legal. They are not a family-overwrite tool.
+
+Same-family rolls that appear before the required mod is on the item are a dead base (see below).
+
+## No Annul in the early stages
+
+Orb of Annulment and prefix/suffix-locked annul omens are too rare for setup. If an early roll blocks the plan (wrong family, junk filler, missed lock on a cheap base), vendor the item and start a new base. Do not spend Annul until the required affix is already locked.
+
+## Verify every step before claiming
+
+Always verify the possible outcomes of each step before claiming them. Do not give advice that depends on an assumption, or on an outcome that step cannot produce. Unverified branches stay unsaid.
+

@@ -1,0 +1,335 @@
+coesettings = [
+    {
+        "id": "global",
+        "label": "Global settings",
+        "options": [
+            {
+                "id": "profilingMode",
+                "label": "Profiling",
+                "description": "Will show snackbars with profiling information when active.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "0"
+            },
+            {
+                "id": "referenceText",
+                "label": "Reference text",
+                "description": "Shows reference text when hovering on keywords (Holding the SHIFT key will do the same when this option is inactive.)",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "1"
+            },
+            {
+                "id": "currentPatch",
+                "type": "Custom",
+                "description": "Allows for changing to a specific patch's data.",
+                "custom": "UIManager.getPatchChanger()",
+                "execute": "UIManager.initPatchChanger(settingNode)"
+            }
+        ]
+    },
+    {
+        "id": "pricing",
+        "label": "Pricing settings",
+        "options": [
+            {
+                "id": "showPrices",
+                "label": "Tooltip prices",
+                "description": "Shows pricing data if available on currency object tooltips when active.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "1"
+            },
+            {
+                "id": "defaultCurrency",
+                "label": "Default currency",
+                "description": "Specifies which currency should be used as the default currency.",
+                "type": "Selector",
+                "options": "PricingManager.getPricingCurrencies()",
+                "default": "eval:PricingManager.getDefaultPricing()",
+                "keyname": "PricingManager.getDefaultPricingSettingKey()",
+                "settingsChange": "Settings.changeDefaultCurrency(value)"
+            },
+            {
+                "id": "pricingLeague",
+                "label": "League",
+                "description": "League to be used for pricing data.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "leagueSoftcore",
+                        "label": "Challenge"
+                    },
+                    {
+                        "id": "leagueHardcore",
+                        "label": "Challenge (HC)"
+                    },
+                    {
+                        "id": "standardSoftcore",
+                        "label": "Standard"
+                    },
+                    {
+                        "id": "standardHardcore",
+                        "label": "Standard (HC)"
+                    }
+                ],
+                "default": "eval:PricingManager.getDefaultLeague()",
+                "settingsChange": "Settings.changePricingLeague(value)"
+            }
+        ]
+    },
+    {
+        "id": "crafting",
+        "label": "Crafting settings",
+        "options": [
+            {
+                "id": "layoutMode",
+                "label": "Layout",
+                "description": "Toggles between classic and fullscreen mode for the crafting interface.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "classic",
+                        "label": "Classic"
+                    },
+                    {
+                        "id": "fullscreen",
+                        "label": "Fullscreen"
+                    }
+                ],
+                "default": "classic"
+            },
+            {
+                "id": "compactMode",
+                "label": "Compact mode",
+                "description": "Shows a more compact interface where possible.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "0"
+            },
+            {
+                "id": "legacyMode",
+                "label": "Legacy elements",
+                "description": "Shows legacy elements when active (can result in slower load times).",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "show",
+                        "label": "Show"
+                    },
+                    {
+                        "id": "hide",
+                        "label": "Hide"
+                    }
+                ],
+                "default": "hide"
+            },
+            {
+                "id": "explicitsMode",
+                "label": "Explicits output",
+                "description": "Combined mode shows explicits (prefixes and suffixes) as two side-by-side columns.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "combined",
+                        "label": "Combined"
+                    },
+                    {
+                        "id": "split",
+                        "label": "Split"
+                    }
+                ],
+                "default": "combined"
+            },
+            {
+                "id": "filterEffect",
+                "label": "Filter effect",
+                "description": "Specifies how tag filters should behave by either crossing out invalid elements or hiding them.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "filter-cross",
+                        "label": "Cross out"
+                    },
+                    {
+                        "id": "filter-hide",
+                        "label": "Hide"
+                    }
+                ],
+                "default": "filter-cross"
+            },
+            {
+                "id": "weightComputations",
+                "label": "Weight computations",
+                "description": "Will show weighting computation columns when active.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "weight-compute-show",
+                        "label": "Show"
+                    },
+                    {
+                        "id": "weight-compute-hide",
+                        "label": "Hide"
+                    }
+                ],
+                "default": "weight-compute-show"
+            },
+            {
+                "id": "modifierOutput",
+                "label": "Item modifier output",
+                "description": "Toggles between advanced (full modifier information) and classic (consolidated) mode for item output.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "advanced",
+                        "label": "Advanced"
+                    },
+                    {
+                        "id": "classic",
+                        "label": "Classic"
+                    }
+                ],
+                "default": "advanced"
+            },
+            {
+                "id": "itemOrderOutput",
+                "label": "Items ordering",
+                "description": "Toggles between alphabetical or drop level as the ordering method for items.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "alpha",
+                        "label": "Alphabetical"
+                    },
+                    {
+                        "id": "drop",
+                        "label": "Drop level"
+                    }
+                ],
+                "default": "drop"
+            },
+            {
+                "id": "tagFilterStatus",
+                "label": "Tags filter",
+                "description": "Will show tag filters when active.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "active",
+                        "label": "Active"
+                    },
+                    {
+                        "id": "hidden",
+                        "label": "Hidden"
+                    }
+                ],
+                "default": "active"
+            },
+            {
+                "id": "itemPseudos",
+                "label": "Show item pseudos",
+                "description": "Will show computed pseudos in item output (edps, pdps, total resists, etc).",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "active",
+                        "label": "Active"
+                    },
+                    {
+                        "id": "hidden",
+                        "label": "Hidden"
+                    }
+                ],
+                "default": "active"
+            },
+            {
+                "id": "allowLimitBypass",
+                "label": "Bypass limits",
+                "description": "Allows the user to bypass item limitations in regards to maximum number of modifiers.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "0"
+            },
+            {
+                "id": "showHiddenStats",
+                "label": "Show hidden stats",
+                "description": "Allows the user to view hidden modifier stats.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "0"
+            },
+            {
+                "id": "showConfidenceOutput",
+                "label": "Show confidence",
+                "description": "Toggles the confidence computation block in the calculations output.",
+                "type": "Selector",
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "On"
+                    },
+                    {
+                        "id": "0",
+                        "label": "Off"
+                    }
+                ],
+                "default": "1"
+            }
+        ]
+    }
+]

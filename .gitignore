@@ -19,3 +19,4 @@ Plugins/StashUtility
 
 POE2Radar
 /temp
+.playwright-cli/

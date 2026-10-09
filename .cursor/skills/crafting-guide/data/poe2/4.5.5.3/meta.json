@@ -1,0 +1,8 @@
+{
+  "patch": "4.5.5.3",
+  "source": "https://beta.craftofexile.com",
+  "files": [
+    "data.json",
+    "english.json"
+  ]
+}
