@@ -39,6 +39,8 @@ namespace GameHelper.Ui
         private static readonly Vector4 Blue = new(0.60f, 0.80f, 1.00f, 1f);
 
         private static SweepResult? lastSweep;
+        private static string? headlessDumpPath;
+        private static int headlessDumpFrameCounter;
         private static bool autoRefresh;
         private static int autoRefreshFrameCounter;
         private static int expectedMaxHealth;
@@ -116,6 +118,7 @@ namespace GameHelper.Ui
             while (true)
             {
                 yield return new Wait(GameHelperEvents.OnRender);
+                HeadlessDumpTick();
                 if (!Core.GHSettings.ShowOffsetHelper)
                 {
                     continue;
@@ -376,6 +379,76 @@ namespace GameHelper.Ui
             if (ImGui.SmallButton($"Copy recovery report##odcopyrecovery_{probe.Name}"))
             {
                 ImGui.SetClipboardText(BuildRecoveryReport(probe));
+            }
+        }
+
+        /// <summary>
+        ///     Headless patch-day mode: when the <c>GH_OFFSET_DUMP</c> environment variable names a
+        ///     file, a full sweep (every probe, every root's field rows, recovery candidates and the
+        ///     resolved static addresses) is written there every ~600 frames, without the window.
+        ///     Lets offset recovery be driven by external tooling that cannot click the overlay.
+        /// </summary>
+        private static void HeadlessDumpTick()
+        {
+            if (headlessDumpPath == null)
+            {
+                headlessDumpPath = Environment.GetEnvironmentVariable("GH_OFFSET_DUMP") ?? string.Empty;
+            }
+
+            if (headlessDumpPath.Length == 0 || ++headlessDumpFrameCounter < 600)
+            {
+                return;
+            }
+
+            headlessDumpFrameCounter = 0;
+            var sb = new System.Text.StringBuilder();
+            try
+            {
+                sb.AppendLine($"# OffsetHelper headless dump {DateTime.Now:O}");
+                sb.AppendLine($"GameState: {Core.States.GameCurrentState}");
+                foreach (var kv in Core.Process.StaticAddresses)
+                {
+                    sb.AppendLine($"Static {kv.Key} = 0x{kv.Value.ToInt64():X}");
+                }
+
+                var sweep = Eng.RunSweep(new OffsetRecoveryHints
+                {
+                    MaxHealth = expectedMaxHealth,
+                    MaxMana = expectedMaxMana,
+                    MaxEnergyShield = expectedMaxEnergyShield,
+                });
+                sb.AppendLine($"InGame={sweep.InGame} Intact={sweep.Intact} Degraded={sweep.Degraded} Unverifiable={sweep.Unverifiable} NoRoot={sweep.NoRoot}");
+                foreach (var probe in sweep.Probes)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine($"== {probe.Name} | {probe.Verdict} | roots={probe.RootCount} | {probe.Detail}");
+                    if (probe.Recoveries.Count > 0)
+                    {
+                        sb.AppendLine(BuildRecoveryReport(probe));
+                    }
+
+                    foreach (var root in probe.Roots.Take(2))
+                    {
+                        sb.AppendLine($"  -- root {root.Label} @0x{root.Address.ToInt64():X} {root.Verdict} {root.Note}");
+                        foreach (var f in root.Fields)
+                        {
+                            sb.AppendLine($"     0x{f.Offset:X} {f.Name} [{f.Kind}] {f.Status} = {f.Value} {f.Reason}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine($"EXCEPTION {ex}");
+            }
+
+            try
+            {
+                System.IO.File.WriteAllText(headlessDumpPath, sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[OffsetHelper.HeadlessDump] {ex.Message}");
             }
         }
 
